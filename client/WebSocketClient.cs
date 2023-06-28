@@ -57,10 +57,7 @@ namespace client
                         {
                             isConnected = true;
                         }
-                        else
-                        {
-                            Program.EventRecieved(msg);
-                        }
+                        Program.EventRecieved(msg);
                     }
                 }
             }
