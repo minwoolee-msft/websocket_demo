@@ -11,8 +11,6 @@ namespace OwinCustomServer
 {
     public class HelloWorldController : ApiController
     {
-        static WebsocketService websocketService = new WebsocketService();
-
         [HttpPost]
         [Route("helloworld")]
         public IHttpActionResult GetHelloWorld()
@@ -20,23 +18,27 @@ namespace OwinCustomServer
             return Ok("Hello, world!");
         }
 
-        public void Get()
+        /*
+        [HttpGet]
+        public async Task<IHttpActionResult> Get()
         {
             IOwinContext owinContext = Request.GetOwinContext();
             if (IsWebSocketRequest(Request))
             {
-                Task.Run(() => websocketService.AcceptSocketAsync(owinContext).ConfigureAwait(false));
+                await websocketService.AcceptSocketAsync(owinContext).ConfigureAwait(false);
             }
             else
             {
                 owinContext.Response.StatusCode = 400;
                 owinContext.Response.Write("Not a valid websocket request");
-                return;
+                return StatusCode(HttpStatusCode.UnsupportedMediaType);
             }
 
+            return StatusCode(HttpStatusCode.SwitchingProtocols);
             // TODO FIX: please do to not return 204
-            Task.Delay(1000000).Wait();
+            //Task.Delay(1000000).Wait();
         }
+        */
 
         private bool IsWebSocketRequest(HttpRequestMessage request)
         {
