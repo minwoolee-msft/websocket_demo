@@ -5,6 +5,7 @@ namespace client
     internal class Program
     {
         const string PMA_SERVER = "http://localhost:12020/pma";
+        const string OWIN_WEBSOCKET = "ws://localhost:8080/helloworld";
 
         // CONTOSO CODE
         static async Task Main(string[] args)
@@ -14,10 +15,17 @@ namespace client
                 string payload = DateTime.Now.ToString();
                 Console.WriteLine($"[CLIENT] Sending Request:{payload}");
 
-                // HTTP post to create call
-                var response = await CreateCall(PMA_SERVER, payload);
+                // (PMA) HTTP post to create call
+                // var response = await CreateCall(PMA_SERVER, payload);
 
-                Console.WriteLine($"[CLIENT] Response:{response}");
+                // (OWIN WEBHOST)
+                var websocketClient = new WebSocketClient();
+                _ = Task.Run(async () =>
+                {
+                    await websocketClient.TryToEstablishWebsocketConnection(OWIN_WEBSOCKET, "msg");
+                });
+
+                //Console.WriteLine($"[CLIENT] Response:{response}");
                 Console.ReadLine();
             };
         }
