@@ -5,7 +5,7 @@ namespace client
     internal class Program
     {
         const string PMA_SERVER = "http://localhost:12020/pma";
-        const string OWIN_WEBSOCKET = "ws://localhost:8080/helloworld";
+        const string OWIN_WEBSOCKET = "ws://localhost:8080/ws";
 
         // CONTOSO CODE
         static async Task Main(string[] args)
